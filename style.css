@@ -45,18 +45,18 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: rgb(165, 86, 161);
+    color: rgb(236, 240, 19);
 }
 
 .spotlight-nav {
-    text-shadow: 0 0 50px #f575e4, 0 0 20px #ff00de;
     top: 0;
 }
 
 .spotlight-nav p {
+    text-align: start;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 300;
+    font-size: 0.9rem;
 }
 
 .spotlight-footer {

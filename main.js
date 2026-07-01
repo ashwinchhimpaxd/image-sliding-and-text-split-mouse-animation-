@@ -16,7 +16,8 @@ const marqueeTrack = document.querySelector('.spotlight-marquee-track');
 const config = {
     marqueeScrollSpeed: 200,
     stripFollowEase: 0.05, //images follow mouse strenght 1-> full no dealy 0.05 very slow following 
-    stripEdgeInset: 175,
+    stripTopInset: 180,
+    stripBottomInset: 120,
     contentRiseRate: 0.85,
     risenTopGap: 100,
     liftHeadStart: 125,
@@ -69,11 +70,11 @@ function measureGeometry() {
     stripBaseTop = marqueeStrip.offsetTop;
     stripHeight = marqueeStrip.offsetHeight;
 
-    stripRestCenterY = config.stripEdgeInset;
+    stripRestCenterY = config.stripTopInset;
 
     let blockTop = Infinity;
     textLines.forEach((line) => {
-        
+
         let y = 0;
         let node = line.el;
         while (node && node !== spotlightSection) {
@@ -88,10 +89,10 @@ function measureGeometry() {
     contentTopAtRest = isFinite(blockTop) ? blockTop : sectionHeight * 0.4;
 
     if (!hasPointerMoved) {
-        const restY = config.stripEdgeInset - stripBaseTop - stripHeight / 2;
+        const restY = config.stripTopInset - stripBaseTop - stripHeight / 2;
         stripTargetY = restY;
         stripCurretnY = restY;
-        stripPrevY = config.stripEdgeInset;
+        stripPrevY = config.stripTopInset;
     }
 }
 
@@ -129,8 +130,8 @@ spotlightSection.addEventListener("mousemove", (event) => {
     // console.log(event.clientY, bounds.top)
     const cursorY = event.clientY - bounds.top;
     const wantedY = cursorY - stripBaseTop - stripHeight / 2;
-    const highestY = config.stripEdgeInset - stripBaseTop - stripHeight / 2; // 175px form top
-    const lowestY = sectionHeight - config.stripEdgeInset - stripBaseTop - stripHeight / 2; // 675px form bottom 
+    const highestY = config.stripTopInset - stripBaseTop - stripHeight / 2; // 175px form top
+    const lowestY = sectionHeight - config.stripBottomInset - stripBaseTop - stripHeight / 2; // 675px form bottom 
     stripTargetY = gsap.utils.clamp(highestY, lowestY, wantedY) // actual position of images track in Y axis  and 
 })
 
@@ -141,7 +142,7 @@ gsap.ticker.add(() => {
     const stripCenterY = stripBaseTop + stripCurretnY + stripHeight / 2;
 
     const stripVelocity = stripCenterY - stripPrevY;
-    
+
     stripPrevY = stripCenterY;
 
     const descentBelowRest = Math.max(0, stripCenterY - stripRestCenterY);
